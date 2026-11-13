@@ -32,10 +32,10 @@ namespace TRPO_Prakt8.Controllers
             if (_taskService.GetAll().Any(p => p.Id == id))
             {
                 if (User.IsInRole("Admin"))
-                    return Ok(_taskService.GetAll().Where(p => p.Id == id));
+                    return Ok(_taskService.GetAll().First(p => p.Id == id));
 
                 if (_taskService.GetAll().Any(p => p.OwnerLogin == User.Identity?.Name && p.Id == id))
-                    return Ok(_taskService.GetAll().Where(p => p.OwnerLogin == User.Identity?.Name && p.Id == id));
+                    return Ok(_taskService.GetAll().First(p => p.OwnerLogin == User.Identity?.Name && p.Id == id));
 
                 return Forbid();
             }
